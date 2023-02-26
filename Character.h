@@ -1,15 +1,18 @@
-#include "raylib.h"
 
+#ifndef CHARACTER_H
+#define CHARACTER_H
+#include "raylib.h"
 class Character
 {
+
 public:
-    Character(int winWidth, int winHeight);
-    void Tick(float deltaTime);
-    // Getting Character's World Position
+    Character(/* args */);
+    virtual void Tick(float deltaTime);
     Vector2 GetWorldPosition();
     void UndoMovements();
+    Rectangle GetCollisionRec();
 
-private:
+protected:
     Texture2D texture{LoadTexture("characters/knight_idle_spritesheet.png")};
     Texture2D idle{LoadTexture("characters/knight_idle_spritesheet.png")};
     Texture2D run{LoadTexture("characters/knight_run_spritesheet.png")};
@@ -27,4 +30,8 @@ private:
     float speed{4.f};
     float scale{4.f};
     Vector2 worldPosLastFrame{};
+
+private:
+    /* data */
 };
+#endif
