@@ -1,15 +1,20 @@
 #include "Character.h"
 #include "raymath.h"
 
-
-Character::Character()
+Character::Character(int winWidth, int winHeight)
 {
     width = texture.width / maxFrames;
     height = texture.height;
+    screenPos =
+        {
+            static_cast<float>(winWidth) / 2 - scale * (0.5f * width / 6.0f),
+            static_cast<float>(winHeight) / 2 - scale * (0.5f * height / 6.0f),
+        };
 }
 
 void Character::Tick(float deltaTime)
 {
+    worldPosLastFrame = GetWorldPosition();
     Vector2 direction{};
     if (IsKeyDown(KEY_A))
         direction.x -= 1.0;
@@ -43,18 +48,12 @@ void Character::Tick(float deltaTime)
 
     // Draw player
     Rectangle source{frame * width, 0.f, dirX * width, height};
-    Rectangle dest{screenPos.x, screenPos.y, 4.0f * width, 4.f * height};
+    Rectangle dest{screenPos.x, screenPos.y, scale * width, scale * height};
     DrawTexturePro(texture, source, dest, Vector2{}, 0.0f, WHITE);
 }
 
 Vector2 Character::GetWorldPosition() { return worldPos; }
-
-void Character::SetScreenPos(int winWidth, int winHeight)
+void Character::UndoMovements()
 {
-    screenPos =
-        {
-            (float)winWidth / 2 - 4.0f * (0.5f * (float)width / 6.0f),
-            (float)winHeight / 2 - 4.0f * (0.5f * (float)height / 6.0f),
-        };
+    worldPos = worldPosLastFrame;
 }
-
