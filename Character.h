@@ -11,12 +11,12 @@ public:
     Vector2 GetWorldPosition();
     void UndoMovements();
     Rectangle GetCollisionRec();
+    virtual Vector2 getScreenPos() = 0;
 
 protected:
     Texture2D texture{LoadTexture("characters/knight_idle_spritesheet.png")};
     Texture2D idle{LoadTexture("characters/knight_idle_spritesheet.png")};
     Texture2D run{LoadTexture("characters/knight_run_spritesheet.png")};
-    Vector2 screenPos{};
     Vector2 worldPos{};
     float dirX{1.f};
     float width{};
@@ -30,6 +30,7 @@ protected:
     float speed{4.f};
     float scale{4.f};
     Vector2 worldPosLastFrame{};
+    Vector2 velocity{};
 
 private:
     /* data */

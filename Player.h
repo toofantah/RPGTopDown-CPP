@@ -8,7 +8,10 @@ class Player : public Character
 public:
     Player(int winWidth, int winHeight);
     virtual void Tick(float deltaTime) override;
-private:
+    virtual Vector2 getScreenPos() override;
 
+private:
+    int windowWidth{};
+    int windowHeight{};
 };
 #endif
